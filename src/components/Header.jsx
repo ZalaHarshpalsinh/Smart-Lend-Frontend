@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Bell, Menu, X, LogOut, User, Settings } from 'lucide-react';
+import { logout } from "../services/authService";
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ userData, setSidebarOpen, sidebarOpen, setActivePage }) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -9,6 +11,7 @@ const Header = ({ userData, setSidebarOpen, sidebarOpen, setActivePage }) => {
     { id: 3, message: "Loan application approved for David Wilson", time: "3 hours ago" }
   ]);
   const [showNotifications, setShowNotifications] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <header className="bg-white border-b border-gray-200 z-30">
@@ -122,6 +125,8 @@ const Header = ({ userData, setSidebarOpen, sidebarOpen, setActivePage }) => {
                     <button
                       onClick={() => {
                         // Handle logout
+                        logout();
+                        navigate("/login");
                         setShowProfileMenu(false);
                       }}
                       className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
